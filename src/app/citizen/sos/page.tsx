@@ -116,7 +116,15 @@ export default function CitizenSOSPage() {
   return (
     <div className="grid gap-6 xl:grid-cols-[1fr_0.9fr]">
       <div className="space-y-6">
-        <CitizenSosCoach description={description} type={sosType} />
+        <CitizenSosCoach
+          description={description}
+          onApplySuggestion={(refined) => {
+            setDescription(refined);
+            setMessage("AI summary applied. Your next SOS submission will use the refined text.");
+            setSubmitError(null);
+          }}
+          type={sosType}
+        />
 
         <Card className="border-danger/30">
         <CardTitle>Emergency SOS</CardTitle>

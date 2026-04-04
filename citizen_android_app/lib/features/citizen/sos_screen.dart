@@ -104,6 +104,15 @@ class _SosScreenState extends State<SosScreen> {
     }
   }
 
+  void _applyPreparedSummary() {
+    final refined = _preparedSos?.refined.trim() ?? '';
+    if (refined.isEmpty) return;
+
+    setState(() {
+      _descriptionController.text = refined;
+    });
+  }
+
   List<_SosType> _localizedSosTypes(AppLocalizations l10n) => [
     _SosType('medical', l10n.medical),
     _SosType('trapped', l10n.trapped),
@@ -277,6 +286,11 @@ class _SosScreenState extends State<SosScreen> {
               if (_preparedSos != null) ...[
                 const SizedBox(height: 12),
                 _AiPreparedSosCard(result: _preparedSos!),
+                const SizedBox(height: 12),
+                OutlinedButton(
+                  onPressed: _applyPreparedSummary,
+                  child: const Text('Use AI summary in SOS'),
+                ),
               ],
               const SizedBox(height: 20),
               Text(
